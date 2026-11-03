@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-// 1. Entry point: Flutter starts running the app from here
 void main() {
   runApp(const MyApp());
 }
 
-// 2. The root of the app (it never changes, so it's Stateless)
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -20,7 +18,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// 3. The login screen (Stateful, because things change: password hidden/visible)
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -29,35 +26,30 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // Controllers let us read what the user typed
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  // Tracks whether the password is hidden
   bool _hidePassword = true;
 
-  // Runs when the Login button is pressed
   void _login() {
     final email = _emailController.text.trim();
     final password = _passwordController.text;
 
     if (email.isEmpty || password.isEmpty) {
       _showMessage('Please fill in all fields');
-    } else if (!email.contains('@')) {
+    } else if (!email.contains('@') || !email.endsWith('.com')) {
       _showMessage('Please enter a valid email');
     } else {
       _showMessage('Login successful! Welcome, $email');
     }
   }
 
-  // Shows a small message at the bottom of the screen
   void _showMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),
     );
   }
 
-  // Free up memory when the screen is closed
   @override
   void dispose() {
     _emailController.dispose();
@@ -83,7 +75,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 32),
 
-              // Email field
               TextField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
@@ -95,7 +86,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 16),
 
-              // Password field
               TextField(
                 controller: _passwordController,
                 obscureText: _hidePassword,
@@ -117,7 +107,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 24),
 
-              // Login button
               SizedBox(
                 width: double.infinity,
                 height: 48,
