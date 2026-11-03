@@ -37,8 +37,8 @@ class _LoginPageState extends State<LoginPage> {
 
     if (email.isEmpty || password.isEmpty) {
       _showMessage('Please fill in all fields');
-    } else if (!email.contains('@') || !email.endsWith('.com')) {
-      _showMessage('Please enter a valid email');
+    } else if (!email.endsWith('@gmail.com') || email == '@gmail.com') {
+      _showMessage('Please enter a valid Gmail address');
     } else {
       _showMessage('Login successful! Welcome, $email');
     }
